@@ -1,10 +1,11 @@
-# API CONTACT
-REST API in contacts
-## How to use?
-- Download the repository and move to it
-- Install dependencies with `npm install`
-- Modify the file ***store/config.js***, adding your mysql configuration
-- Run API (API still under development) in DEBUG mode with `npm run dev`
+# CONTACTO API
+API REST en contactos
+## ¿Cómo utilizar?
+- Descarga el repositorio y muévete a él
+- Instalar dependencias con `npm install`
+- Modifique el archivo *** store / config.js ***, agregando su configuración de mysql
+- Ejecutar API (API aún en desarrollo) en modo DEBUG con `npm run dev`
+- Utilice la API con un cliente para API REST como **[POSTMAN](http://www.postman.com/ "POSTMAN")** o **[INSOMNIA](https://insomnia.rest/ "INSOMNIA")**
 
-### 🧾 License
-The MIT License (MIT)
+### 🧾 Licencia
+La licencia del MIT (MIT)
