@@ -2,15 +2,17 @@ const express = require('express')
 const bodyParser = require('body-parser').json()
 
 const ContactsServices = require('../services/contactsServices')
+const { Authentication } = require('../middleware/index')
 
 function contactsAPI(app) {
   const router = express.Router()
   app.use('/api/contacts', router)
 
   const contactsServices = new ContactsServices()
+  const authentication = new Authentication()
 
   // GET Contacts List
-  router.get('/', async function(req, res, next) {
+  router.get('/', authentication.verifyToken, async function(req, res, next) {
     const contactsList = await contactsServices.getContactsList()
     res.send({
       status: 200,
@@ -20,7 +22,7 @@ function contactsAPI(app) {
   })
 
   // GET Contact for ID
-  router.get('/:contactId', async function(req, res, next) {
+  router.get('/:contactId', authentication.verifyToken, async function(req, res, next) {
     const { contactId } = await req.params
     const contactsList = await contactsServices.getContactById({ contactId })
     res.send({
@@ -31,7 +33,7 @@ function contactsAPI(app) {
   })
 
   // POST Contact
-  router.post('/', bodyParser, async function(req, res, next) {
+  router.post('/', bodyParser, authentication.verifyToken, async function(req, res, next) {
     const { body: contact } = await req
     const newContact = await contactsServices.createContact(contact)
     res.send({
@@ -42,7 +44,7 @@ function contactsAPI(app) {
   })
 
   // PUT Contact for ID
-  router.put('/:contactId', bodyParser, async function(req, res, next) {
+  router.put('/:contactId', bodyParser, authentication.verifyToken, async function(req, res, next) {
     const { contactId } = await req.params
     const { body: data } = await req
     const changeContactData = await contactsServices.updateContact(contactId, data)
@@ -54,7 +56,7 @@ function contactsAPI(app) {
   })
 
   // DELETE Contact for ID
-  router.delete('/:contactId', async function(req, res, next) {
+  router.delete('/:contactId', authentication.verifyToken, async function(req, res, next) {
     const { contactId } = await req.params
     const contactsList = await contactsServices.deleteContact({ contactId })
     res.send({
