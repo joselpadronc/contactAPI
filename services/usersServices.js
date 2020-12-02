@@ -11,10 +11,19 @@ class UsersServices {
     return userById
   }
 
-  async updateUser() {
+  async updateUser(id, data) {
+    const userId = id
+    const userData = data
+
+    const userToUpdate = await store.update(this.table, userId, userData)
+    return userToUpdate
   }
 
-  async deleteUser() {
+  async deleteUser(id) {
+    const userId = id
+
+    const userToDelete = await store.deleteRow(this.table, userId)
+    return userToDelete
   }
 
 }
